@@ -79,8 +79,9 @@ def starting_page(request):
     return render(request, 'blog/index.html', {'posts': latest_posts})
 
 def posts(requet):
-    return render(requet, 'blog/all-posts.html')
+    return render(requet, 'blog/all-posts.html', {'all_posts': all_posts})
 
 
 def post_detail(request, slug):
-    return render(request, 'blog/post-detail.html')
+    identified_post = next(post for post in all_posts if post['slug'] == slug)
+    return render(request, 'blog/post-detail.html', {'post': identified_post})
