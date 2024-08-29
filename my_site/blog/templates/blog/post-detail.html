@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %} My Blog {% endblock %} 
+
+{% block css_files %}
+  <link rel='stylesheet' href={% static 'blog/post-detail.css' %}/>
+  {% comment %} <link rel='stylesheet' href={% static 'blog/post.css'%} /> {% endcomment %}
+{% endblock %}
+
+
+
+{% block content %}
+    <section id='summary'>
+        <h2>Post Title</h2>
+
+        <article>
+            <img src={% static "blog/images/mountains.jpg" %} alt="Post Title">
+            <address>By Luka</address>
+            <div>
+                Last updated on <time>July 10th</time>
+            </div>
+        </article>
+    </section>
+
+    <main>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore praesentium reiciendis vel dolorum mollitia ipsum eos ex dignissimos! Fuga veritatis a recusandae eius facere quia aliquam veniam voluptatibus numquam incidunt.
+        </p>
+
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, quos ea molestiae mollitia illum odit. Quaerat deserunt enim doloremque, eveniet inventore deleniti fuga non et sapiente dicta sit quia aperiam.
+        </p>
+
+        <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam ratione earum suscipit quo magnam beatae, impedit dolores cupiditate ut voluptates ullam? Minus dolorem quisquam error, possimus ipsam deserunt delectus aliquid.
+        </p>
+    </main>
+
+{% endblock %}
