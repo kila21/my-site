@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 
 def starting_page(request):
-    return None
+    return render(request, 'blog/index.html')
 
 def posts(requet):
     return None
