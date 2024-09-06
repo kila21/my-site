@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from datetime import date
 from .models import Post
 
@@ -12,9 +12,11 @@ def starting_page(request):
     return render(request, 'blog/index.html', {'posts': latest_posts})
 
 def posts(requet):
+    all_posts = Post.objects.all().order_by('-date')
     return render(requet, 'blog/all-posts.html', {'all_posts': all_posts})
 
 
 def post_detail(request, slug):
-    identified_post = next(post for post in all_posts if post['slug'] == slug)
+    identified_post = get_object_or_404(Post, slug=slug)
+
     return render(request, 'blog/post-detail.html', {'post': identified_post})
