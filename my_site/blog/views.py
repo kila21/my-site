@@ -19,9 +19,12 @@ class StartingPageView(ListView):
         data = queryset[:3]
         return data
 
-def posts(requet):
-    all_posts = Post.objects.all().order_by('-date')
-    return render(requet, 'blog/all-posts.html', {'all_posts': all_posts})
+
+class AllPostView(ListView):
+    template_name = 'blog/all-posts.html'
+    model = Post
+    ordering = ['-date']
+    context_object_name = 'all_posts'
 
 
 def post_detail(request, slug):
