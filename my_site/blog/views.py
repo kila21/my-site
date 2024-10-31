@@ -64,3 +64,8 @@ class SinglePostView(View):
     #     context['post_tags'] = self.object.tags.all()
     #     context['comment_form'] = CommentForm()
     #     return context
+
+
+class ReadLaterView(View):
+    def post(self, request):
+        pass
