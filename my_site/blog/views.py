@@ -30,16 +30,23 @@ class AllPostView(ListView):
 
 
 class SinglePostView(View):
-    template_name = 'blog/post-detail.html'
-    model = Post
+    def is_stored_post(self, request, post_id):
+        stored_posts = request.session.get('stored_posts')
+        if stored_posts is not None:
+            is_saved_for_later = post_id in stored_posts
+        else:
+            is_saved_for_later = False
+        return is_saved_for_later
 
     def get(self, request, slug):
         post = Post.objects.get(slug=slug)
+        
         return render(request, 'blog/post-detail.html', {
             'post': post,
             'post_tags': post.tags.all(),
             'comment_form': CommentForm(),
-            'comments': post.comments.all().order_by('-id')
+            'comments': post.comments.all().order_by('-id'),
+            'saved_for_later': self.is_stored_post(request, post.id)
         })
 
     def post(self, request, slug ):
@@ -56,7 +63,8 @@ class SinglePostView(View):
                     'post': post,
                     'post_tags': post.tags.all(),
                     'comment_form': comment_form,
-                    'comments': post.comments.all().order_by('-id')       
+                    'comments': post.comments.all().order_by('-id'),
+                    'saved_for_later': self.is_stored_post(request, post.id)    
                 })
 
     # def get_context_data(self, **kwargs):
@@ -92,6 +100,8 @@ class ReadLaterView(View):
 
         if post_id not in stored_posts:
             stored_posts.append(post_id)
-            request.session['stored_posts'] = stored_posts
+        else:
+            stored_posts.remove(post_id)
 
+        request.session['stored_posts'] = stored_posts
         return HttpResponseRedirect('/')
