@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog'
+    'blog',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -134,6 +135,32 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = BASE_DIR / 'uploads'
 MEDIA_URL = '/files/'
+
+
+
+
+AWS_STORAGE_BUCKET_NAME = 'django-blog-folders'
+AWS_S3_REGION_NAME = 'us-east-1'
+
+AWS_ACCESS_KEY_ID = 'AKIASIVGLFYQDQ2WES7Y'
+AWS_SECRET_ACCESS_KEY = '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'
+
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+
+AWS_S3_FILE_OVERWRITE = False
+
+STORAGES = {
+    "default": {
+        "BACKEND": 'storages.backends.s3boto3.S3StaticStorage',
+    },
+
+    "staticfiles": {
+        "BACKEND": 'storages.backends.s3boto3.S3StaticStorage'
+    }
+}
+
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
